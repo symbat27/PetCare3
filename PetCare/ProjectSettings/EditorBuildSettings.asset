@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Main.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    guid: 6dc8abf96fa8aa24598d29f9a18f28a7
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 837c7ee1bfc376b4c95dffc2aec3dc60
+  - enabled: 1
+    path: Assets/Scenes/PetRoom_Level1.unity
+    guid: 2fb359453ef69a64ba77003d29a4c672
   - enabled: 1
     path: Assets/Scenes/Settings.unity
     guid: 0aa0e025e02d1a049b2f8c1a80ff6e83
