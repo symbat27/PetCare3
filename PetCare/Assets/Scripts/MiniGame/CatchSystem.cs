@@ -5,12 +5,21 @@ public class CatchSystem : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
 
+    public AudioClip catchSound;
+    public AudioClip virusSound;
+
+    private AudioSource audioSource;
+
     private int score = 0;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         score = 0;
+
         PlayerPrefs.SetInt("FinalScore", score);
+
         scoreText.text = "Score: " + score;
     }
 
@@ -19,11 +28,28 @@ public class CatchSystem : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             score++;
-            PlayerPrefs.SetInt("FinalScore", score);
 
-            scoreText.text = "Score: " + score;
+            audioSource.PlayOneShot(catchSound);
 
             Destroy(collision.gameObject);
         }
+
+        if (collision.CompareTag("Virus"))
+        {
+            score--;
+
+            if (score < 0)
+            {
+                score = 0;
+            }
+
+            audioSource.PlayOneShot(virusSound, 2f);
+
+            Destroy(collision.gameObject);
+        }
+
+        PlayerPrefs.SetInt("FinalScore", score);
+
+        scoreText.text = "Score: " + score;
     }
 }

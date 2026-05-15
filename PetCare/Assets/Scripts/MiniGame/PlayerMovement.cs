@@ -5,6 +5,16 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 8f;
 
+    public float minX = -2.1f;
+    public float maxX = 2.1f;
+
+    private Vector3 targetPosition;
+
+    void Start()
+    {
+        targetPosition = transform.position;
+    }
+
     void Update()
     {
         float move = 0f;
@@ -19,6 +29,14 @@ public class PlayerMovement : MonoBehaviour
             move = 1f;
         }
 
-        transform.Translate(Vector2.right * move * speed * Time.deltaTime);
+        targetPosition += Vector3.right * move * speed * Time.deltaTime;
+
+        targetPosition.x = Mathf.Clamp(targetPosition.x, minX, maxX);
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
+            10f * Time.deltaTime
+        );
     }
 }

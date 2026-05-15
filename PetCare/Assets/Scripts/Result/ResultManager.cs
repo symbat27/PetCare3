@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,10 @@ public class ResultManager : MonoBehaviour
     public TextMeshProUGUI resultText;
     public TextMeshProUGUI finalScoreText;
     public TextMeshProUGUI highScoreText;
-    public TextMeshProUGUI ratingText;
+
+    public Image dog1;
+    public Image dog2;
+    public Image dog3;
 
     void Start()
     {
@@ -23,20 +27,31 @@ public class ResultManager : MonoBehaviour
         finalScoreText.text = "Score: " + finalScore;
         highScoreText.text = "High Score: " + highScore;
 
-        if (finalScore >= 15)
+        dog1.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+        dog2.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+        dog3.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+
+        if (finalScore <= 10)
         {
-            resultText.text = "YOU WIN!";
-            ratingText.text = "Rating: 3 stars";
+            resultText.text = "YOU LOSE!";
         }
-        else if (finalScore >= 8)
+        else if (finalScore <= 20)
         {
             resultText.text = "GOOD!";
-            ratingText.text = "Rating: 2 stars";
+            dog1.color = Color.white;
+        }
+        else if (finalScore <= 45)
+        {
+            resultText.text = "AWESOME!";
+            dog1.color = Color.white;
+            dog2.color = Color.white;
         }
         else
         {
-            resultText.text = "YOU LOSE!";
-            ratingText.text = "Rating: 1 star";
+            resultText.text = "PERFECT!";
+            dog1.color = Color.white;
+            dog2.color = Color.white;
+            dog3.color = Color.white;
         }
     }
 
@@ -47,6 +62,6 @@ public class ResultManager : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("MainMenu");
     }
 }

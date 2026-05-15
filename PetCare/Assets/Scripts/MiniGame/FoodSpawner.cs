@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FoodSpawner : MonoBehaviour
 {
-    public GameObject foodPrefab;
+    public GameObject[] foodPrefabs;
 
     public float spawnRate = 1f;
 
@@ -17,6 +17,8 @@ public class FoodSpawner : MonoBehaviour
 
         Vector2 spawnPos = new Vector2(randomX, transform.position.y);
 
-        Instantiate(foodPrefab, spawnPos, Quaternion.identity);
+        int randomFood = Random.Range(0, foodPrefabs.Length);
+
+        Instantiate(foodPrefabs[randomFood], spawnPos, Quaternion.identity);
     }
 }
