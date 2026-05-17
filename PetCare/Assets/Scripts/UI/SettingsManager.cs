@@ -1,50 +1,83 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class SettingsManager : MonoBehaviour
 {
     public Slider volumeSlider;
-    public Toggle shadowsToggle;
+    public Toggle nightModeToggle;
+
+    public GameObject saveText;
+
+    public TextMeshProUGUI modeText;
 
     void Start()
     {
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", 1f);
-
-        bool shadows = PlayerPrefs.GetInt("Shadows", 1) == 1;
-        shadowsToggle.isOn = shadows;
-
         AudioListener.volume = volumeSlider.value;
 
-        QualitySettings.shadows = shadows
-            ? ShadowQuality.All
-            : ShadowQuality.Disable;
+        bool nightMode = PlayerPrefs.GetInt("NightMode", 0) == 1;
+        nightModeToggle.isOn = nightMode;
+
+        UpdateModeText();
+
+        saveText.SetActive(false);
     }
 
-    public void ChangeVolume()
+    public void SaveSettings()
     {
-        AudioListener.volume = volumeSlider.value;
-
         PlayerPrefs.SetFloat("Volume", volumeSlider.value);
-    }
 
-    public void ToggleShadows()
-    {
-        if (shadowsToggle.isOn)
+        if (nightModeToggle.isOn)
         {
-            QualitySettings.shadows = ShadowQuality.All;
-            PlayerPrefs.SetInt("Shadows", 1);
+            PlayerPrefs.SetInt("NightMode", 1);
         }
         else
         {
-            QualitySettings.shadows = ShadowQuality.Disable;
-            PlayerPrefs.SetInt("Shadows", 0);
+            PlayerPrefs.SetInt("NightMode", 0);
         }
+
+        AudioListener.volume = volumeSlider.value;
+
+        UpdateModeText();
+
+        ShowSaveText();
+    }
+
+    void UpdateModeText()
+    {
+        if (nightModeToggle.isOn)
+        {
+            modeText.text = "Night Mode";
+        }
+        else
+        {
+            modeText.text = "Day Mode";
+        }
+    }
+
+    void ShowSaveText()
+    {
+        saveText.SetActive(true);
+
+        CancelInvoke(nameof(HideSaveText));
+
+        Invoke(nameof(HideSaveText), 1.5f);
+    }
+
+    void HideSaveText()
+    {
+        saveText.SetActive(false);
     }
 
     public void BackToMenu()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OnNightToggleChanged()
+    {
+        UpdateModeText();
     }
 }
-

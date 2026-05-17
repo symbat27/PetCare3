@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 24ebf86869a535e4cae7572571643a83
+guid: 496bd5fde02271b4fbd664fc09205885
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4760709882204562324
-    second: "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F
-      (8)_0"
+      213: -5592803585053880754
+    second: Pochacco icon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -123,18 +122,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F
-        (8)_0"
+      name: Pochacco icon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 736
-        height: 1308
+        height: 736
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 493ae7f1a60711240800000000000000
-      internalID: 4760709882204562324
+      spriteID: e4e055675ce5262b0800000000000000
+      internalID: -5592803585053880754
       vertices: []
       indices: 
       edges: []
@@ -163,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u0411\u0435\u0437 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u044F (8)_0": 4760709882204562324
+      Pochacco icon_0: -5592803585053880754
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
