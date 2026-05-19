@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -16,6 +16,14 @@ public class PetManager : MonoBehaviour
 
     public Image ageCircleFill;
     public TMP_Text ageText;
+
+    public GameObject birthdayText;
+
+    public ParticleSystem confettiEffect1;
+    public ParticleSystem confettiEffect2;
+
+    public AudioSource backgroundMusicAudio;
+    public AudioSource buttonClickAudio;
 
     public TMP_Text scoreText;
     public SpriteRenderer petRenderer;
@@ -45,6 +53,27 @@ public class PetManager : MonoBehaviour
         SetupSlider(happinessSlider);
         SetupSlider(cleanlinessSlider);
 
+        if (birthdayText != null)
+        {
+            birthdayText.SetActive(false);
+        }
+
+        if (confettiEffect1 != null)
+        {
+            confettiEffect1.Stop();
+        }
+
+        if (confettiEffect2 != null)
+        {
+            confettiEffect2.Stop();
+        }
+
+        if (backgroundMusicAudio != null && !backgroundMusicAudio.isPlaying)
+        {
+            backgroundMusicAudio.loop = true;
+            backgroundMusicAudio.Play();
+        }
+
         FixPetTransform();
         UpdateUI();
         UpdatePetEmotion();
@@ -71,9 +100,12 @@ public class PetManager : MonoBehaviour
 
     public void FeedPet()
     {
+        PlayButtonClick();
+
         hunger = Mathf.Clamp(hunger + 35f, 0, 100);
         happiness = Mathf.Clamp(happiness + 5f, 0, 100);
         score += 10;
+
         AddAgeProgress(10f);
 
         StartCoroutine(ShowEmotionForSeconds(happySprite));
@@ -81,9 +113,12 @@ public class PetManager : MonoBehaviour
 
     public void CleanPet()
     {
+        PlayButtonClick();
+
         cleanliness = Mathf.Clamp(cleanliness + 35f, 0, 100);
         happiness = Mathf.Clamp(happiness + 5f, 0, 100);
         score += 10;
+
         AddAgeProgress(10f);
 
         StartCoroutine(ShowEmotionForSeconds(happySprite));
@@ -91,10 +126,27 @@ public class PetManager : MonoBehaviour
 
     public void PlayMiniGame()
     {
-        StartCoroutine(ShowPlayThenLoad());
+        PlayButtonClick();
+
+        StartCoroutine(ShowPlayThenLoadGarden());
     }
 
-    private IEnumerator ShowPlayThenLoad()
+    public void OpenPlayWithFriend()
+    {
+        PlayButtonClick();
+
+        SceneManager.LoadScene("PlayWithFriend");
+    }
+
+    private void PlayButtonClick()
+    {
+        if (buttonClickAudio != null)
+        {
+            buttonClickAudio.Play();
+        }
+    }
+
+    private IEnumerator ShowPlayThenLoadGarden()
     {
         showingTemporaryEmotion = true;
 
@@ -143,25 +195,46 @@ public class PetManager : MonoBehaviour
         {
             age++;
             ageProgress = 0f;
+
+            StartCoroutine(ShowBirthdayEffect());
         }
 
         UpdateUI();
     }
 
+    private IEnumerator ShowBirthdayEffect()
+    {
+        if (birthdayText != null)
+        {
+            birthdayText.SetActive(true);
+        }
+
+        if (confettiEffect1 != null)
+        {
+            confettiEffect1.Play();
+        }
+
+        if (confettiEffect2 != null)
+        {
+            confettiEffect2.Play();
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        if (birthdayText != null)
+        {
+            birthdayText.SetActive(false);
+        }
+    }
+
     private Color GetSliderColor(float value)
     {
         if (value > 70)
-        {
             return Color.green;
-        }
         else if (value > 50)
-        {
             return Color.yellow;
-        }
         else
-        {
             return Color.red;
-        }
     }
 
     private void UpdatePetEmotion()

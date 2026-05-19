@@ -8,18 +8,33 @@ public class SceneLoader : MonoBehaviour
     public void LoadPetRoom()
     {
         PlayClick();
-        SceneManager.LoadScene("PetRoom_Level1");
+        Invoke(nameof(OpenPetRoom), 0.15f);
     }
 
     public void LoadSettings()
     {
         PlayClick();
-        SceneManager.LoadScene("Settings");
+        Invoke(nameof(OpenSettings), 0.15f);
     }
 
     public void QuitGame()
     {
         PlayClick();
+        Invoke(nameof(QuitApplication), 0.15f);
+    }
+
+    private void OpenPetRoom()
+    {
+        SceneManager.LoadScene("PetRoom_Level1");
+    }
+
+    private void OpenSettings()
+    {
+        SceneManager.LoadScene("Settings");
+    }
+
+    private void QuitApplication()
+    {
         Debug.Log("Quit game");
         Application.Quit();
     }
