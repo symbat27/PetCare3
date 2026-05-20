@@ -49,6 +49,7 @@ public class CatchSystem : MonoBehaviour
         }
 
         PlayerPrefs.SetInt("FinalScore", score);
+        PlayerPrefs.SetInt("FoodPoints", score);
 
         scoreText.text = "Score: " + score;
     }

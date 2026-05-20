@@ -27,6 +27,8 @@ public class PetManager : MonoBehaviour
 
     public TMP_Text scoreText;
     public SpriteRenderer petRenderer;
+    public TMP_Text foodText;
+    private int foodPoints = 0;
 
     public Sprite normalSprite;
     public Sprite hungrySprite;
@@ -75,6 +77,7 @@ public class PetManager : MonoBehaviour
         }
 
         FixPetTransform();
+        foodPoints = PlayerPrefs.GetInt("FoodPoints", 0);
         UpdateUI();
         UpdatePetEmotion();
     }
@@ -102,6 +105,15 @@ public class PetManager : MonoBehaviour
     {
         PlayButtonClick();
 
+        if (foodPoints <= 0)
+        {
+            return;
+        }
+
+        foodPoints--;
+
+        PlayerPrefs.SetInt("FoodPoints", foodPoints);
+
         hunger = Mathf.Clamp(hunger + 35f, 0, 100);
         happiness = Mathf.Clamp(happiness + 5f, 0, 100);
         score += 10;
@@ -109,6 +121,8 @@ public class PetManager : MonoBehaviour
         AddAgeProgress(10f);
 
         StartCoroutine(ShowEmotionForSeconds(happySprite));
+
+        UpdateUI();
     }
 
     public void CleanPet()
@@ -185,6 +199,11 @@ public class PetManager : MonoBehaviour
 
         ageCircleFill.fillAmount = ageProgress / maxAgeProgress;
         ageText.text = "Age " + age;
+
+        if (foodText != null)
+        {
+            foodText.text = "Food: " + foodPoints;
+        }
     }
 
     private void AddAgeProgress(float amount)
